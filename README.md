@@ -1,15 +1,15 @@
-# AI Trend Extractor 🚀
+# AI Trend Extractor �
 
-A full-stack **Next.js 14 (App Router)** dashboard that fetches Reddit's hottest posts in real-time and uses **Google Gemini 2.5 Flash** (via Vercel AI SDK) to surface structured trend insights — emerging topics, sentiment analysis, and key entities.
+A full-stack **Next.js 16 (App Router)** dashboard that fetches Reddit's hottest posts in real-time and uses **Google Gemini 2.5 Flash** (via Vercel AI SDK) to surface structured trend insights — emerging topics, sentiment analysis, and key entities.
 
 ---
 
 ## ✨ Features
 
-- **Live Reddit Data** — Fetches the top 30 posts from `/r/all/hot` in real-time
-- **AI-Powered Analysis** — Gemini 2.5 Flash extracts structured trends using `generateObject()`
+- **Live Reddit Data** — Fetches the top 100 posts from `/r/all/hot` in real-time (no auth required)
+- **AI-Powered Analysis** — Gemini 2.5 Flash extracts structured trends using `generateText()` with `Output.object()`
 - **Zod Validation** — All AI responses are validated against a strict schema before being served
-- **Dark Glassmorphism UI** — Responsive, animated dashboard with Tailwind CSS
+- **Clean Dark UI** — Minimal, readable dashboard with ranked lists, sentiment bars, and at-a-glance stats
 - **Robust Error Handling** — Handles Reddit API failures, AI errors, and schema validation failures
 
 ---
@@ -18,12 +18,12 @@ A full-stack **Next.js 14 (App Router)** dashboard that fetches Reddit's hottest
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js 14 (App Router) |
+| Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
-| AI | Vercel AI SDK + Google Gemini 2.5 Flash |
+| AI | Vercel AI SDK v6 + Google Gemini 2.5 Flash |
 | Validation | Zod |
-| Styling | Tailwind CSS |
-| Data Source | Reddit Public API |
+| Styling | Tailwind CSS v4 |
+| Data Source | Reddit Public JSON API |
 
 ---
 
@@ -44,19 +44,14 @@ npm install
 
 ### 3. Set up environment variables
 
-Copy the example environment file:
-
-```bash
-cp .env.local.example .env.local
-```
-
-Then open `.env.local` and replace the placeholder with your real Gemini API key:
+Create a `.env.local` (or plain `.env`) file in the project root:
 
 ```env
 GOOGLE_GENERATIVE_AI_API_KEY=your_actual_key_here
 ```
 
-> Get your free API key from [Google AI Studio](https://aistudio.google.com/).
+> Get your free API key from [Google AI Studio](https://aistudio.google.com/).  
+> Both `.env.local` and `.env` are covered by `.gitignore` — your key won't be committed.
 
 ### 4. Run the development server
 
@@ -103,19 +98,10 @@ The Gemini model returns structured JSON validated against this Zod schema:
 }
 ```
 
----
-
-## 🔧 Build for Production
-
-```bash
-npm run build
-npm start
-```
-
----
 
 ## 📝 Notes
 
-- The Reddit API is rate-limited; responses are cached for 5 minutes (`next: { revalidate: 300 }`)
-- Text is truncated to 40,000 characters before being sent to Gemini to manage token costs
-- The `GOOGLE_GENERATIVE_AI_API_KEY` environment variable is the standard name used by `@ai-sdk/google`
+- The Reddit public JSON API requires a non-browser `User-Agent` header for server-side requests — no OAuth credentials needed
+- Reddit responses are cached for 5 minutes (`next: { revalidate: 300 }`) to avoid rate limiting
+- Post text is truncated to 40,000 characters before being sent to Gemini to manage token costs
+- `GOOGLE_GENERATIVE_AI_API_KEY` is the standard env var name used by `@ai-sdk/google`
