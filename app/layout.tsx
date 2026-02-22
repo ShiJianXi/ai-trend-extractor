@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description:
     "Real-time AI-powered trend analysis from Reddit's hottest posts. Discover emerging topics, sentiment patterns, and key entities.",
   keywords: ["AI", "trends", "Reddit", "sentiment analysis", "NLP", "Gemini"],
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>",
+  },
   openGraph: {
     title: "AI Trend Extractor",
     description: "Real-time AI trend analysis from social data",
