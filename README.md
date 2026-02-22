@@ -81,7 +81,7 @@ ai-trend-extractor/
 
 ---
 
-## 📊 AI Output Schema
+## AI Output Schema
 
 The Gemini model returns structured JSON validated against this Zod schema:
 
@@ -98,7 +98,7 @@ The Gemini model returns structured JSON validated against this Zod schema:
 ```
 
 
-## 📝 Notes
+## Notes
 
 - The Reddit public JSON API requires a non-browser `User-Agent` header for server-side requests — no OAuth credentials needed
 - Reddit responses are cached for 5 minutes (`next: { revalidate: 300 }`) to avoid rate limiting
